@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>PhotoTrigger.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>ModeSelection.qml</file>
+        <file>PhotoCountdown.qml</file>
+        <file>ExtraPhoto.qml</file>
+        <file>PhotoSlideshow.qml</file>
+        <file>GridPhotoView.qml</file>
+        <file>Smiley.qml</file>
+        <file>PhotoView.qml</file>
+    </qresource>
+</RCC>
