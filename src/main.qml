@@ -12,20 +12,22 @@ ApplicationWindow {
     property string mode
     property var photos: []
     property var extraPhoto
+    property var galleryPhoto
 
     Component {
-        id: photoGrid
-        GridPhotoView {
+        id: gallery
+        GalleryView {
+            photo: root.galleryPhoto
             onSave: {
                 photos.forEach(function(photo) { photo.saveInSession(); });
+                galleryPhoto.saveInSession  ();
                 stackView.replace(null, photoTrigger);
-                photos = [];
             }
 
             onReject: {
                 photos.forEach(function(photo) { photo.remove(); });
+                galleryPhoto.remove();
                 stackView.replace(null, photoTrigger);
-                photos = [];
             }
         }
     }
@@ -35,21 +37,7 @@ ApplicationWindow {
         PhotoSlideshow {
             photos: root.photos
             onFinished: {
-                var galleryPhotos = [];
-                photos.forEach(function(photo) { galleryPhotos.push(photo); } );
-
-                if (mode === "three") {
-                    galleryPhotos.push(extraPhoto);
-                }
-
-                // FIXME
-                var paths = []
-                for(var i in galleryPhotos) {
-                  paths.push(galleryPhotos[i].path);
-                }
-                galleryBuilder.makeGallery(paths);
-
-                stackView.replace(null, photoGrid, { photoList: galleryPhotos });
+                stackView.replace(null, gallery, {}, StackView.Immediate);
             }
         }
     }
@@ -68,9 +56,21 @@ ApplicationWindow {
     Component {
         id: photoTrigger
         PhotoTrigger {
+            Component.onCompleted: {
+                root.photos = [];
+                root.galleryPhoto = undefined;
+            }
+
             onTriggered: {
                 stackView.replace(null, photoCountdown);
             }
+        }
+    }
+
+    Connections {
+        target: galleryBuilder
+        onDone: {
+            root.galleryPhoto = photo;
         }
     }
 
@@ -81,6 +81,19 @@ ApplicationWindow {
                 if (mode === "three" && photos.length < 3 || mode === "four" && photos.length < 4) {
                     stackView.replace(null, photoCountdown, {}, StackView.Immediate);
                 } else {
+                    var galleryPhotos = [];
+                    photos.forEach(function(photo) { galleryPhotos.push(photo); } );
+
+                    if (mode === "three") {
+                        galleryPhotos.push(extraPhoto);
+                    }
+
+                    var paths = []
+                    for(var i in galleryPhotos) {
+                        paths.push(galleryPhotos[i].path);
+                    }
+                    galleryBuilder.makeGallery(paths);
+
                     stackView.replace(null, photoSlideshow);
                 }
             }

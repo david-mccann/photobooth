@@ -12,13 +12,16 @@ void Photo::setPath(const QString &path) { m_path = path; }
 void Photo::saveInSession() {
   QFileInfo info(m_path);
   QString filename = info.fileName();
-  QString newPath = QString("%1/%2").arg(SESSION_PATH).arg(filename);
+  QString newPath =
+      QString("%1/%2").arg(Settings::instance().sessionPath()).arg(filename);
   QFile::rename(m_path, newPath);
   m_path = newPath;
 }
 
 void Photo::saveAsExtraPhoto() {
-  QString newPath = QString("%1/%2").arg(SESSION_PATH).arg("extra.jpeg");
+  QString newPath = QString("%1/%2")
+                        .arg(Settings::instance().sessionPath())
+                        .arg("extra.jpeg");
   QFile::rename(m_path, newPath);
   m_path = newPath;
 }

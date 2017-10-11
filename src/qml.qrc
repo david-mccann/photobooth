@@ -7,7 +7,7 @@
         <file>PhotoCountdown.qml</file>
         <file>ExtraPhoto.qml</file>
         <file>PhotoSlideshow.qml</file>
-        <file>GridPhotoView.qml</file>
+        <file>GalleryView.qml</file>
         <file>Smiley.qml</file>
         <file>PhotoView.qml</file>
     </qresource>

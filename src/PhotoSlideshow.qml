@@ -2,11 +2,16 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.3
 
 Item {
-    property int duration: 3000
+    property int duration
     property var photos: []
     property int index: 0
 
     signal finished()
+
+    Component.onCompleted: {
+        //duration = globalSettings.slideshowDuration * 1000
+        duration = 1
+    }
 
     RowLayout {
         anchors.rightMargin: 5

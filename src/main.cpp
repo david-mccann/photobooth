@@ -4,6 +4,7 @@
 
 #include "gallerybuilder.h"
 #include "photocapture.h"
+#include "settings.h"
 
 int main(int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -21,6 +22,8 @@ int main(int argc, char *argv[]) {
   GalleryBuilder galleryBuilder;
   engine.rootContext()->setContextProperty("photoCapture", &capture);
   engine.rootContext()->setContextProperty("galleryBuilder", &galleryBuilder);
+  engine.rootContext()->setContextProperty(
+      "globalSettings", const_cast<Settings *>(&Settings::instance()));
 
   return app.exec();
 }

@@ -5,9 +5,13 @@ import QtQuick.Layouts 1.3
 Item {
     id: root
 
-    property int value: 3
+    property int value
     property var photo
     signal countdownFinished()
+
+    Component.onCompleted: {
+        value = globalSettings.countdownDuration;
+    }
 
     Timer {
         interval: 1000; running: true; repeat: true

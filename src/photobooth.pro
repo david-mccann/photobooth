@@ -5,7 +5,8 @@ CONFIG += c++11
 SOURCES += main.cpp \
     photocapture.cpp \
     photo.cpp \
-    gallerybuilder.cpp
+    gallerybuilder.cpp \
+    settings.cpp
 
 RESOURCES += qml.qrc \
     resources.qrc

@@ -14,8 +14,9 @@ GalleryBuilder::GalleryBuilder() : m_watcher(new QFutureWatcher<void>) {
 
 void GalleryBuilder::makeGallery(const QList<QString> &paths) {
   QFuture<void> result = QtConcurrent::run(QThreadPool::globalInstance(), [=] {
-    const int imageWidth = 2440;
-    const int imageHeight = 1680;
+    const QSize scaledImageSize = Settings::instance().scaledImageSize();
+    const int imageWidth = scaledImageSize.width();
+    const int imageHeight = scaledImageSize.height();
 
     QImage gallery(imageWidth, imageHeight, QImage::Format_RGB32);
     QPainter painter(&gallery);
@@ -42,11 +43,13 @@ void GalleryBuilder::makeGallery(const QList<QString> &paths) {
 
     const QDateTime now = QDateTime::currentDateTime();
     const QString timestamp = now.toString("yyyyMMdd-hhmmsszzz");
-    const QString filename =
-        QString("%1/%2_composed.jpeg").arg(SESSION_PATH).arg(timestamp);
+    const QString filename = QString("%1/%2_composed.jpeg")
+                                 .arg(Settings::instance().sessionPath())
+                                 .arg(timestamp);
+    m_photo.setPath(filename);
     gallery.save(filename);
   });
   m_watcher->setFuture(result);
 }
 
-void GalleryBuilder::futureFinished() { qDebug() << "Future finished"; }
+void GalleryBuilder::futureFinished() { emit done(m_photo); }

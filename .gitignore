@@ -2,4 +2,4 @@
 moc_*.cpp
 build-*
 .qmake.stash
-
+/run
