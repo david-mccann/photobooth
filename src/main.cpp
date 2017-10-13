@@ -21,9 +21,8 @@ int main(int argc, char *argv[]) {
 
   QDir usbDriveDir(Settings::instance().usbDrivePath());
   if (!usbDriveDir.mkpath(".")) {
-    qCritical() << "Cannot create directory: "
-                << Settings::instance().usbDrivePath();
-    exit(1);
+    qWarning() << "Cannot create directory: "
+               << Settings::instance().usbDrivePath();
   }
 
   QDir tempDir(Settings::instance().tempPath());

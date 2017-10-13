@@ -45,3 +45,7 @@ int Settings::countdownDuration() const {
 int Settings::slideshowDuration() const {
   return m_settings.value("Settings/SlideshowDuration").toInt();
 }
+
+int Settings::galleryDuration() const {
+  return m_settings.value("Settings/GalleryDuration").toInt();
+}

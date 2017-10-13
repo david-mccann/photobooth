@@ -12,6 +12,7 @@ class Settings : public QObject {
   Q_OBJECT
   Q_PROPERTY(int countdownDuration READ countdownDuration)
   Q_PROPERTY(int slideshowDuration READ slideshowDuration)
+  Q_PROPERTY(int galleryDuration READ galleryDuration)
 
 public:
   ~Settings();
@@ -27,6 +28,7 @@ public:
 
   int countdownDuration() const;
   int slideshowDuration() const;
+  int galleryDuration() const;
 
 private:
   Settings();

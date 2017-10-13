@@ -27,11 +27,19 @@ void Photo::saveAsExtraPhoto() {
   QString newPath = QString("%1/%2")
                         .arg(Settings::instance().sessionPath())
                         .arg("extra.jpeg");
+  if (QFile::exists(newPath)) {
+    QFile::remove(newPath);
+  }
+
   QFile::rename(m_path, newPath);
 
   QString usbPath = QString("%1/%2")
                         .arg(Settings::instance().usbDrivePath())
                         .arg("extra.jpeg");
+  if (QFile::exists(usbPath)) {
+    QFile::remove(usbPath);
+  }
+
   QFile::copy(newPath, usbPath);
   m_path = newPath;
 }

@@ -9,6 +9,7 @@ Item {
 
     GridLayout {
         id: gridLayout
+        anchors.bottomMargin: 0
         columns: 2
         rows: 2
         anchors.fill: parent
@@ -54,6 +55,7 @@ Item {
             text: qsTr("Akzeptieren")
             font.pointSize: 24
             Layout.fillWidth: true
+            Layout.minimumHeight: 200
             Layout.row: 2
             Layout.column: 1
             enabled: extraPhoto !== undefined
@@ -68,6 +70,7 @@ Item {
             text: qsTr("Wiederholen")
             font.pointSize: 24
             Layout.fillWidth: true
+            Layout.minimumHeight: 200
             Layout.row: 2
             Layout.column: 2
             enabled: extraPhoto !== undefined

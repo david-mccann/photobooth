@@ -4,9 +4,14 @@ import QtQuick.Controls 2.0
 
 Item {
     property var photo
+    property int duration
 
     signal save()
     signal reject()
+
+    Component.onCompleted: {
+        duration = globalSettings.galleryDuration * 1000;
+    }
 
     GridLayout {
         id: gallery
@@ -28,9 +33,18 @@ Item {
             sourceSize.width: 640
             sourceSize.height: 480
             source: "file:" + photo.path
+
+            MouseArea {
+                scale: 1
+                anchors.fill: parent
+                onClicked: {
+                    timer.stop();
+                    save();
+                }
+            }
         }
 
-        Button {
+        /*Button {
             id: saveButton
             enabled: photo !== undefined
             Layout.row: 3
@@ -50,6 +64,14 @@ Item {
             text: qsTr("Verwerfen")
             Layout.fillWidth: true
             onClicked: reject()
+        }*/
+
+        Timer {
+            id: timer
+            interval: duration; repeat: false; running: true
+            onTriggered: {
+                save();
+            }
         }
     }
 
