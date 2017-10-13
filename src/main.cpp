@@ -1,3 +1,4 @@
+#include <QDir>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -17,6 +18,20 @@ int main(int argc, char *argv[]) {
   engine.load(QUrl(QLatin1String("qrc:/main.qml")));
   if (engine.rootObjects().isEmpty())
     return -1;
+
+  QDir tempDir(Settings::instance().tempPath());
+  if (!tempDir.mkpath(".")) {
+    qCritical() << "Cannot create directory: "
+                << Settings::instance().tempPath();
+    exit(1);
+  }
+
+  QDir sessionDir(Settings::instance().sessionPath());
+  if (!sessionDir.mkpath(".")) {
+    qCritical() << "Cannot create directory: "
+                << Settings::instance().sessionPath();
+    exit(1);
+  }
 
   PhotoCapture capture;
   GalleryBuilder galleryBuilder;

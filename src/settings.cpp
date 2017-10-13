@@ -16,6 +16,10 @@ const Settings &Settings::instance() {
   return *pInstance;
 }
 
+QString Settings::basePath() const {
+  return m_settings.value("Settings/BasePath").toString();
+}
+
 QString Settings::tempPath() const {
   return QString("%1/temp").arg(
       m_settings.value("Settings/BasePath").toString());

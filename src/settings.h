@@ -18,6 +18,7 @@ public:
 
   static const Settings &instance();
 
+  QString basePath() const;
   QString tempPath() const;
   QString sessionPath() const;
 
