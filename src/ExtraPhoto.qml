@@ -24,7 +24,7 @@ Item {
             id: photoCountdown
             PhotoCountdown {
                 onCountdownFinished: {
-                    extraPhoto = photo;
+                    extraPhoto = photoCapture.capture();
                     stackView.push(photoView);
                 }
             }

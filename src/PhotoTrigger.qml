@@ -9,8 +9,6 @@ Item {
         anchors.fill: parent
 
         Image {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
             sourceSize.width: 600

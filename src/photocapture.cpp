@@ -3,23 +3,25 @@
 #include "settings.h"
 
 #include <QDebug>
+#include <QProcess>
 
 Photo PhotoCapture::capture() {
   const QDateTime now = QDateTime::currentDateTime();
   const QString timestamp = now.toString("yyyyMMdd-hhmmsszzz");
-  const QString filename =
-      QString("%1/%2.jpeg").arg(Settings::instance().tempPath()).arg(timestamp);
+  const QString filename = QString("%2.jpeg").arg(timestamp);
 
-  // workaround
-  static int count = 0;
-  int index = (count++) % 4 + 1;
-  QString path = QString("%1/%2.jpeg")
-                     .arg(Settings::instance().tempPath())
-                     .arg(QString::number(index));
-  qDebug() << path;
-  QFile::copy(path, filename);
+  QProcess process;
+  process.setWorkingDirectory(Settings::instance().tempPath());
+  process.setProgram("/usr/local/bin/gphoto2");
+
+  process.setArguments(
+      {"--capture-image-and-download", "--filename", filename});
+
+  process.start();
+  process.waitForFinished(-1);
 
   Photo photo;
-  photo.setPath(filename);
+  photo.setPath(Settings::instance().tempPath() + "/" + filename);
+
   return photo;
 }

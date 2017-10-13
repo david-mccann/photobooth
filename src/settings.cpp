@@ -16,18 +16,22 @@ const Settings &Settings::instance() {
   return *pInstance;
 }
 
-QString Settings::basePath() const {
-  return m_settings.value("Settings/BasePath").toString();
+QString Settings::localPath() const {
+  return m_settings.value("Settings/LocalPath").toString();
 }
 
 QString Settings::tempPath() const {
   return QString("%1/temp").arg(
-      m_settings.value("Settings/BasePath").toString());
+      m_settings.value("Settings/LocalPath").toString());
 }
 
 QString Settings::sessionPath() const {
   return QString("%1/session")
-      .arg(m_settings.value("Settings/BasePath").toString());
+      .arg(m_settings.value("Settings/LocalPath").toString());
+}
+
+QString Settings::usbDrivePath() const {
+  return m_settings.value("Settings/USBDrivePath").toString();
 }
 
 QSize Settings::scaledImageSize() const {

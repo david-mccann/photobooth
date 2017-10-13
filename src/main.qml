@@ -46,8 +46,6 @@ ApplicationWindow {
         id: photoCountdown
         PhotoCountdown {
             onCountdownFinished: {
-                photos.push(photo);
-                console.log(photos);
                 stackView.replace(null, smiley, {}, StackView.Immediate);
             }
         }
@@ -77,24 +75,31 @@ ApplicationWindow {
     Component {
         id: smiley
         Smiley {
-            onCountdownFinished: {
-                if (mode === "three" && photos.length < 3 || mode === "four" && photos.length < 4) {
-                    stackView.replace(null, photoCountdown, {}, StackView.Immediate);
-                } else {
-                    var galleryPhotos = [];
-                    photos.forEach(function(photo) { galleryPhotos.push(photo); } );
+            Timer {
+                interval: 100; repeat: false; running: true
+                onTriggered: {
+                    var p = photoCapture.capture();
+                    console.log(p);
+                    photos.push(p);
 
-                    if (mode === "three") {
-                        galleryPhotos.push(extraPhoto);
+                    if (mode === "three" && photos.length < 3 || mode === "four" && photos.length < 4) {
+                        stackView.replace(null, photoCountdown, {}, StackView.Immediate);
+                    } else {
+                        var galleryPhotos = [];
+                        photos.forEach(function(photo) { galleryPhotos.push(photo); } );
+
+                        if (mode === "three") {
+                            galleryPhotos.push(extraPhoto);
+                        }
+
+                        var paths = []
+                        for(var i in galleryPhotos) {
+                            paths.push(galleryPhotos[i].path);
+                        }
+                        galleryBuilder.makeGallery(paths);
+
+                        stackView.replace(null, photoSlideshow);
                     }
-
-                    var paths = []
-                    for(var i in galleryPhotos) {
-                        paths.push(galleryPhotos[i].path);
-                    }
-                    galleryBuilder.makeGallery(paths);
-
-                    stackView.replace(null, photoSlideshow);
                 }
             }
         }

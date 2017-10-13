@@ -18,9 +18,10 @@ public:
 
   static const Settings &instance();
 
-  QString basePath() const;
+  QString localPath() const;
   QString tempPath() const;
   QString sessionPath() const;
+  QString usbDrivePath() const;
 
   QSize scaledImageSize() const;
 

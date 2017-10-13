@@ -11,6 +11,7 @@ class PhotoCapture : public QObject {
   Q_OBJECT
 
 public:
+  //  PhotoCapture(QObject *parent = Q_NULLPTR);
   Q_INVOKABLE Photo capture();
 };
 

@@ -19,6 +19,13 @@ int main(int argc, char *argv[]) {
   if (engine.rootObjects().isEmpty())
     return -1;
 
+  QDir usbDriveDir(Settings::instance().usbDrivePath());
+  if (!usbDriveDir.mkpath(".")) {
+    qCritical() << "Cannot create directory: "
+                << Settings::instance().usbDrivePath();
+    exit(1);
+  }
+
   QDir tempDir(Settings::instance().tempPath());
   if (!tempDir.mkpath(".")) {
     qCritical() << "Cannot create directory: "

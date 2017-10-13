@@ -20,8 +20,6 @@ Item {
             countdownText.text = String(value);
             if (value === 0) {
                 stop();
-                root.photo = photoCapture.capture("temp");
-                console.log("Saved photo to path: ", root.photo.path);
                 countdownFinished();
             }
         }
