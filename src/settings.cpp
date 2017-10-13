@@ -39,5 +39,5 @@ int Settings::countdownDuration() const {
 }
 
 int Settings::slideshowDuration() const {
-  return m_settings.value("Settings/SmileyDuration").toInt();
+  return m_settings.value("Settings/SlideshowDuration").toInt();
 }

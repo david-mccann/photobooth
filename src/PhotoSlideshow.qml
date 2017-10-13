@@ -9,8 +9,7 @@ Item {
     signal finished()
 
     Component.onCompleted: {
-        //duration = globalSettings.slideshowDuration * 1000
-        duration = 1
+        duration = globalSettings.slideshowDuration * 1000
     }
 
     RowLayout {
