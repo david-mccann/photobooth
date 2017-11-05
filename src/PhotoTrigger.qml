@@ -11,8 +11,8 @@ Item {
         Image {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-            sourceSize.width: 600
-            sourceSize.height: 600
+            sourceSize.width: 480
+            sourceSize.height: 480
             fillMode: Image.PreserveAspectFit
 
             enabled: true

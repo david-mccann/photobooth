@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.7
 import QtQuick.Layouts 1.3
 
 Item {
@@ -12,7 +12,7 @@ Item {
         cache: false
 
         fillMode: Image.PreserveAspectFit
-        sourceSize.width: 1024
-        sourceSize.height: 574
+        sourceSize.width: 800
+        sourceSize.height: 480
     }
 }

@@ -16,8 +16,8 @@ Item {
             enabled: true
             //antialiasing: true
             fillMode: Image.Pad
-            sourceSize.width: 600
-            sourceSize.height: 600
+            sourceSize.width: 400
+            sourceSize.height: 400
             source: "images/4.png"
 
             MouseArea {
@@ -35,8 +35,8 @@ Item {
             //antialiasing: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             fillMode: Image.Pad
-            sourceSize.width: 600
-            sourceSize.height: 600
+            sourceSize.width: 400
+            sourceSize.height: 400
             Layout.fillWidth: true
             Layout.fillHeight: true
             source: "images/3.png"

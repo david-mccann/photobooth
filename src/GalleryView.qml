@@ -29,7 +29,7 @@ Item {
             Layout.row: 1
             Layout.column: 1
             Layout.columnSpan: 2
-            sourceSize.width: 640
+            sourceSize.width: 800
             sourceSize.height: 480
             source: "file:" + photo.path
 
