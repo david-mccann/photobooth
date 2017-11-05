@@ -14,6 +14,13 @@ ApplicationWindow {
     property var extraPhoto
     property var galleryPhoto
 
+    Shortcut {
+            sequence: "Alt+F4"
+            onActivated: {
+                root.close();
+            }
+        }
+
     Component {
         id: gallery
         GalleryView {
