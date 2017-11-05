@@ -5,7 +5,6 @@ import QtQuick.Layouts 1.3
 Item {
     id: root
 
-    property int duration: 1000
     signal countdownFinished()
 
     RowLayout {
@@ -21,13 +20,6 @@ Item {
             enabled: true
             cache: true
             source: "images/smiley.png"
-
-            Timer {
-                interval: 1000; running: true; repeat: false
-                onTriggered: {
-                    countdownFinished();
-                }
-            }
         }
     }
 }
