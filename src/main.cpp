@@ -2,6 +2,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QSurfaceFormat>
 
 #include "gallerybuilder.h"
 #include "photocapture.h"
@@ -12,6 +13,12 @@ int main(int argc, char *argv[]) {
   QGuiApplication app(argc, argv);
 
   QQmlApplicationEngine engine;
+
+  QSurfaceFormat surfaceFormat = QSurfaceFormat::defaultFormat();
+  surfaceFormat.setRedBufferSize(8);
+  surfaceFormat.setGreenBufferSize(8);
+  surfaceFormat.setBlueBufferSize(8);
+  QSurfaceFormat::setDefaultFormat(surfaceFormat);
 
   qRegisterMetaType<Photo>();
 
