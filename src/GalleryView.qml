@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.7
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
@@ -7,7 +7,6 @@ Item {
     property int duration
 
     signal save()
-    signal reject()
 
     Component.onCompleted: {
         duration = globalSettings.galleryDuration * 1000;
@@ -43,28 +42,6 @@ Item {
                 }
             }
         }
-
-        /*Button {
-            id: saveButton
-            enabled: photo !== undefined
-            Layout.row: 3
-            Layout.column: 1
-            font.pointSize: 24
-            text: qsTr("Speichern")
-            Layout.fillWidth: true
-            onClicked: save()
-        }
-
-        Button {
-            id: rejectButton
-            enabled: photo !== undefined
-            Layout.row: 3
-            Layout.column: 2
-            font.pointSize: 24
-            text: qsTr("Verwerfen")
-            Layout.fillWidth: true
-            onClicked: reject()
-        }*/
 
         Timer {
             id: timer

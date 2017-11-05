@@ -30,12 +30,6 @@ ApplicationWindow {
                 galleryPhoto.saveInSession  ();
                 stackView.replace(null, photoTrigger);
             }
-
-            onReject: {
-                photos.forEach(function(photo) { photo.remove(); });
-                galleryPhoto.remove();
-                stackView.replace(null, photoTrigger);
-            }
         }
     }
 
