@@ -8,45 +8,62 @@ Item {
     RowLayout {
         anchors.fill: parent
 
-        Image {
+        ColumnLayout {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            enabled: true
-            //antialiasing: true
-            fillMode: Image.Pad
-            sourceSize.width: 400
-            sourceSize.height: 400
-            source: "images/4.png"
+            Image {
+                enabled: true
+                //antialiasing: true
+                fillMode: Image.Pad
+                sourceSize.width: 400
+                sourceSize.height: 400
+                source: "images/4.png"
 
-            MouseArea {
-                id: fourImageArea
-                scale: 1
-                anchors.fill: parent
-                onClicked: {
-                    fourImageModeSelected();
+                MouseArea {
+                    id: fourImageArea
+                    scale: 1
+                    anchors.fill: parent
+                    onClicked: {
+                        fourImageModeSelected();
+                    }
                 }
+            }
+
+            Text {
+                text: "4er"
+                font.pointSize: 50
+                Layout.alignment: Qt.AlignHCenter
             }
         }
 
-        Image {
-            enabled: true
-            //antialiasing: true
+        ColumnLayout {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            fillMode: Image.Pad
-            sourceSize.width: 400
-            sourceSize.height: 400
-            Layout.fillWidth: true
             Layout.fillHeight: true
-            source: "images/3.png"
+            Layout.fillWidth: true
 
-            MouseArea {
-                id: threeImageArea
-                anchors.fill: parent
-                onClicked: {
-                    threeImageModeSelected();
+            Image {
+                enabled: true
+                //antialiasing: true
+                fillMode: Image.Pad
+                sourceSize.width: 400
+                sourceSize.height: 400
+                source: "images/3.png"
+
+                MouseArea {
+                    id: threeImageArea
+                    anchors.fill: parent
+                    onClicked: {
+                        threeImageModeSelected();
+                    }
                 }
+            }
+
+            Text {
+                text: "3er + 1"
+                font.pointSize: 50
+                Layout.alignment: Qt.AlignHCenter
             }
         }
     }
