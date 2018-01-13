@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
-Item {
+Rectangle {
     property var photo
     property int duration
 
@@ -11,6 +11,8 @@ Item {
     Component.onCompleted: {
         duration = globalSettings.galleryDuration * 1000;
     }
+
+    color: "black"
 
     GridLayout {
         id: gallery

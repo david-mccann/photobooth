@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 
-Item {
+Rectangle {
     property int duration
     property var photos: []
     property int index: 0
@@ -11,6 +11,8 @@ Item {
     Component.onCompleted: {
         duration = globalSettings.slideshowDuration * 1000
     }
+
+    color: "black"
 
     RowLayout {
         anchors.rightMargin: 5
