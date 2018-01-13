@@ -25,9 +25,7 @@ ApplicationWindow {
         id: gallery
         GalleryView {
             photo: root.galleryPhoto
-            onSave: {
-                photos.forEach(function(photo) { photo.saveInSession(); });
-                galleryPhoto.saveInSession  ();
+            onDone: {
                 stackView.replace(null, photoTrigger);
             }
         }
@@ -55,13 +53,19 @@ ApplicationWindow {
     Component {
         id: photoTrigger
         PhotoTrigger {
+            hasGalleryPhoto: root.galleryPhoto !== undefined
+
             Component.onCompleted: {
                 root.photos = [];
-                root.galleryPhoto = undefined;
+                //root.galleryPhoto = undefined;
             }
 
             onTriggered: {
                 stackView.replace(null, photoCountdown);
+            }
+
+            onLastGallery: {
+                stackView.replace(null, gallery)
             }
         }
     }
@@ -70,6 +74,8 @@ ApplicationWindow {
         target: galleryBuilder
         onDone: {
             root.galleryPhoto = photo;
+            photos.forEach(function(p) { p.saveInSession(); });
+            galleryPhoto.saveInSession();
         }
     }
 

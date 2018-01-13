@@ -6,7 +6,7 @@ Rectangle {
     property var photo
     property int duration
 
-    signal save()
+    signal done()
 
     Component.onCompleted: {
         duration = globalSettings.galleryDuration * 1000;
@@ -49,7 +49,7 @@ Rectangle {
             id: timer
             interval: duration; repeat: false; running: true
             onTriggered: {
-                save();
+                done();
             }
         }
     }
