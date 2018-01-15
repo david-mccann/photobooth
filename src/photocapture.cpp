@@ -7,7 +7,7 @@
 #include <QProcess>
 #include <QThread>
 
-#define MOCK_CAPTURE
+//#define MOCK_CAPTURE
 
 Photo PhotoCapture::capture() {
   const QDateTime now = QDateTime::currentDateTime();

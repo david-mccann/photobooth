@@ -5,6 +5,7 @@
 #include <QSurfaceFormat>
 
 #include "gallerybuilder.h"
+#include "maskedmousearea.h"
 #include "photocapture.h"
 #include "settings.h"
 
@@ -21,6 +22,8 @@ int main(int argc, char *argv[]) {
   QSurfaceFormat::setDefaultFormat(surfaceFormat);
 
   qRegisterMetaType<Photo>();
+
+  qmlRegisterType<MaskedMouseArea>("InputHandling", 1, 0, "MaskedMouseArea");
 
   engine.load(QUrl(QLatin1String("qrc:/main.qml")));
   if (engine.rootObjects().isEmpty())

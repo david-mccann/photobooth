@@ -1,6 +1,8 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
+import QtGraphicalEffects 1.0
+import InputHandling 1.0
 
 Item {
     property bool hasGalleryPhoto
@@ -8,51 +10,58 @@ Item {
     signal triggered()
     signal lastGallery()
 
-    RowLayout {
-        anchors.fill: parent
 
-        anchors.bottomMargin: 20
-        anchors.rightMargin: 20
-        anchors.leftMargin: 20
-        anchors.topMargin: 20
+    Image {
+        id: triggerButton
 
-        Image {
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: -38
 
-            sourceSize.width: 480
-            sourceSize.height: 480
-            fillMode: Image.PreserveAspectFit
+        sourceSize.width: 440
+        sourceSize.height: 440
+        fillMode: Image.PreserveAspectFit
 
-            enabled: true
-            cache: true
-            source: "images/triggerbutton.png"
+        cache: true
+        source: "images/triggerbutton.png"
 
-            MouseArea {
-                id: triggerMouseArea
-                anchors.fill: parent
-                onClicked: {
-                    triggered();
-                }
+        MaskedMouseArea {
+            anchors.fill: parent
+            maskSource: triggerButton.source
+            onClicked: {
+                triggered();
             }
         }
+    }
 
-        Image {
-            Layout.alignment: Qt.AlignRight | Qt.AlignBottom
+    Image {
+        id: lastGalleryButton
 
-            sourceSize.width: 50
-            sourceSize.height: 50
-            fillMode: Image.PreserveAspectFit
+        anchors.verticalCenter: triggerButton.verticalCenter
+        anchors.horizontalCenter: triggerButton.horizontalCenter
+        anchors.verticalCenterOffset: 200
+        anchors.horizontalCenterOffset: 177
 
-            visible: hasGalleryPhoto
-            cache: true
-            source: "images/triggerbutton.png"
+        sourceSize.width: 198
+        sourceSize.height: 198
+        fillMode: Image.PreserveAspectFit
 
-            MouseArea {
-                id: lastGalleryMouseArea
-                anchors.fill: parent
-                onClicked: {
-                    lastGallery();
-                }
+        enabled: hasGalleryPhoto
+
+        cache: true
+        source: "images/lastgallery.png"
+
+        Desaturate {
+            anchors.fill: lastGalleryButton
+            source: lastGalleryButton
+            desaturation: !hasGalleryPhoto ? 0.8 : 0.0
+        }
+
+        MaskedMouseArea {
+            anchors.fill: parent
+            maskSource: lastGalleryButton.source
+            onClicked: {
+                lastGallery();
             }
         }
     }

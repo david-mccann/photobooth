@@ -6,7 +6,8 @@ SOURCES += main.cpp \
     photocapture.cpp \
     photo.cpp \
     gallerybuilder.cpp \
-    settings.cpp
+    settings.cpp \
+    maskedmousearea.cpp
 
 RESOURCES += qml.qrc \
     resources.qrc
@@ -37,7 +38,8 @@ HEADERS += \
     photocapture.h \
     settings.h \
     photo.h \
-    gallerybuilder.h
+    gallerybuilder.h \
+    maskedmousearea.h
 
 
 target.path = /home/pi
