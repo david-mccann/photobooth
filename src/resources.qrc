@@ -5,5 +5,6 @@
         <file>images/4.png</file>
         <file>images/triggerbutton.png</file>
         <file>images/lastgallery.png</file>
+        <file>images/lastgallery_gray.png</file>
     </qresource>
 </RCC>

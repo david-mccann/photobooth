@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
-import QtGraphicalEffects 1.0
+//import QtGraphicalEffects 1.0
 import InputHandling 1.0
 
 Item {
@@ -49,13 +49,13 @@ Item {
         enabled: hasGalleryPhoto
 
         cache: true
-        source: "images/lastgallery.png"
+        source: hasGalleryPhoto ? "images/lastgallery.png" : "images/lastgallery_gray.png"
 
-        Desaturate {
+        /*Desaturate {
             anchors.fill: lastGalleryButton
             source: lastGalleryButton
             desaturation: !hasGalleryPhoto ? 0.8 : 0.0
-        }
+        }*/
 
         MaskedMouseArea {
             anchors.fill: parent
