@@ -34,15 +34,6 @@ Rectangle {
             sourceSize.width: 800
             sourceSize.height: 480
             source: "file:" + photo.path
-
-            MouseArea {
-                scale: 1
-                anchors.fill: parent
-                onClicked: {
-                    timer.stop();
-                    save();
-                }
-            }
         }
 
         Timer {
