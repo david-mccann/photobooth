@@ -2,6 +2,8 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 import QtQuick.Window 2.2
+import PhotoCapture 1.0
+
 
 ApplicationWindow {
     id: root
@@ -15,11 +17,15 @@ ApplicationWindow {
     property var galleryPhoto
 
     Shortcut {
-            sequence: "Alt+F4"
-            onActivated: {
-                root.close();
-            }
+        sequence: "Alt+F4"
+        onActivated: {
+            root.close();
         }
+    }
+
+    Component.onCompleted: {
+        root.galleryPhoto = undefined
+    }
 
     Component {
         id: gallery
@@ -35,8 +41,21 @@ ApplicationWindow {
         id: photoSlideshow
         PhotoSlideshow {
             photos: root.photos
+
+            Component.onCompleted: {
+                galleryBuilder.makeGallery(root.photos)
+            }
+
             onFinished: {
                 stackView.replace(null, gallery, {}, StackView.Immediate);
+            }
+
+            GalleryBuilder {
+                id: galleryBuilder
+                onFinished: {
+                    console.log("Gallery: ", path);
+                    root.galleryPhoto = path;
+                }
             }
         }
     }
@@ -57,10 +76,14 @@ ApplicationWindow {
 
             Component.onCompleted: {
                 root.photos = [];
-                //root.galleryPhoto = undefined;
             }
 
             onTriggered: {
+                root.photos = [];
+                if (mode === "three") {
+                    root.photos.push(extraPhoto);
+                }
+
                 stackView.replace(null, photoCountdown);
             }
 
@@ -70,41 +93,22 @@ ApplicationWindow {
         }
     }
 
-    Connections {
-        target: galleryBuilder
-        onDone: {
-            root.galleryPhoto = photo;
-            photos.forEach(function(p) { p.saveInSession(); });
-            galleryPhoto.saveInSession();
-        }
-    }
-
     Component {
         id: smiley
         Smiley {
-            Timer {
-                interval: 100; repeat: false; running: true
-                onTriggered: {
-                    var p = photoCapture.capture();
-                    console.log(p);
-                    photos.push(p);
+            Component.onCompleted: {
+                photoCapture.capture();
+            }
 
-                    if (mode === "three" && photos.length < 3 || mode === "four" && photos.length < 4) {
+            PhotoCapture {
+                id: photoCapture
+                onFinished: {
+                    console.log("Captured: ", path);
+                    root.photos.push(path);
+
+                    if (mode === "three" && root.photos.length < 3 || mode === "four" && root.photos.length < 4) {
                         stackView.replace(null, photoCountdown, {}, StackView.Immediate);
                     } else {
-                        var galleryPhotos = [];
-                        photos.forEach(function(photo) { galleryPhotos.push(photo); } );
-
-                        if (mode === "three") {
-                            galleryPhotos.push(extraPhoto);
-                        }
-
-                        var paths = []
-                        for(var i in galleryPhotos) {
-                            paths.push(galleryPhotos[i].path);
-                        }
-                        galleryBuilder.makeGallery(paths);
-
                         stackView.replace(null, photoSlideshow);
                     }
                 }

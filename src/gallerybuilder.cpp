@@ -43,13 +43,13 @@ void GalleryBuilder::makeGallery(const QList<QString> &paths) {
 
     const QDateTime now = QDateTime::currentDateTime();
     const QString timestamp = now.toString("yyyyMMdd-hhmmsszzz");
-    const QString filename = QString("%1/%2_composed.jpeg")
-                                 .arg(Settings::instance().sessionPath())
-                                 .arg(timestamp);
-    m_photo.setPath(filename);
-    gallery.save(filename);
+    const QString path = QString("%1/%2_composed.jpeg")
+                             .arg(Settings::instance().sessionPath())
+                             .arg(timestamp);
+    gallery.save(path);
+    mOutPath = path;
   });
   m_watcher->setFuture(result);
 }
 
-void GalleryBuilder::futureFinished() { emit done(m_photo); }
+void GalleryBuilder::futureFinished() { emit finished(mOutPath); }

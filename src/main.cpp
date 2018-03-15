@@ -21,9 +21,9 @@ int main(int argc, char *argv[]) {
   surfaceFormat.setBlueBufferSize(8);
   QSurfaceFormat::setDefaultFormat(surfaceFormat);
 
-  qRegisterMetaType<Photo>();
-
   qmlRegisterType<MaskedMouseArea>("InputHandling", 1, 0, "MaskedMouseArea");
+  qmlRegisterType<PhotoCapture>("PhotoCapture", 1, 0, "PhotoCapture");
+  qmlRegisterType<GalleryBuilder>("PhotoCapture", 1, 0, "GalleryBuilder");
 
   engine.load(QUrl(QLatin1String("qrc:/main.qml")));
   if (engine.rootObjects().isEmpty())
@@ -49,10 +49,11 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  PhotoCapture capture;
-  GalleryBuilder galleryBuilder;
-  engine.rootContext()->setContextProperty("photoCapture", &capture);
-  engine.rootContext()->setContextProperty("galleryBuilder", &galleryBuilder);
+  // PhotoCapture capture;
+  // GalleryBuilder galleryBuilder;
+  // engine.rootContext()->setContextProperty("photoCapture", &capture);
+  // engine.rootContext()->setContextProperty("galleryBuilder",
+  // &galleryBuilder);
   engine.rootContext()->setContextProperty(
       "globalSettings", const_cast<Settings *>(&Settings::instance()));
 

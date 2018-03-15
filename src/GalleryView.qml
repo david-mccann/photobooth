@@ -33,7 +33,7 @@ Rectangle {
             Layout.columnSpan: 2
             sourceSize.width: 800
             sourceSize.height: 480
-            source: "file:" + photo.path
+            source: "file:" + photo
         }
 
         Timer {

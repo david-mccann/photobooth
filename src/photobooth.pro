@@ -4,7 +4,6 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     photocapture.cpp \
-    photo.cpp \
     gallerybuilder.cpp \
     settings.cpp \
     maskedmousearea.cpp
@@ -37,7 +36,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     photocapture.h \
     settings.h \
-    photo.h \
     gallerybuilder.h \
     maskedmousearea.h
 

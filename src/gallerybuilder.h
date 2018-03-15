@@ -1,13 +1,10 @@
 #ifndef GALLERYBUILDER_H
 #define GALLERYBUILDER_H
 
-#include <atomic>
-
 #include <QFutureWatcher>
 #include <QList>
 #include <QObject>
-
-#include "photo.h"
+#include <QString>
 
 class GalleryBuilder : public QObject {
   Q_OBJECT
@@ -18,14 +15,14 @@ public:
   Q_INVOKABLE void makeGallery(const QList<QString> &paths);
 
 signals:
-  void done(const Photo &photo);
+  void finished(const QString &path);
 
 private slots:
   void futureFinished();
 
 private:
   QFutureWatcher<void> *m_watcher;
-  Photo m_photo;
+  QString mOutPath;
 };
 
 #endif // GALLERYBUILDER_H

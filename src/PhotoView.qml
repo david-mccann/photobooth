@@ -7,7 +7,7 @@ Item {
     Image {
         anchors.fill: parent
 
-        source: "file:" + photo.path
+        source: "file:" + photo
         enabled: true
         cache: false
 
