@@ -13,14 +13,14 @@ class PhotoCapture : public QObject {
   QString mFilename;
   bool mFinished = false;
 
-signals:
-  void finished(const QString &path);
+  signals:
+  void finished(const QString& path);
 
-private slots:
+  private slots:
   void processFinished(int);
 
-public:
-  PhotoCapture(QObject *parent = Q_NULLPTR);
+  public:
+  PhotoCapture(QObject* parent = Q_NULLPTR);
 
   Q_INVOKABLE void capture();
 };

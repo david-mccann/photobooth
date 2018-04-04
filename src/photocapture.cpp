@@ -9,11 +9,13 @@
 
 #define MOCK_CAPTURE
 
-PhotoCapture::PhotoCapture(QObject *parent) {
+PhotoCapture::PhotoCapture(QObject* /*parent*/) {
   mProcess.setWorkingDirectory(Settings::instance().tempPath());
-  // mProcess.setProgram("/usr/local/bin/gphoto2");
+#ifdef MOCK_CAPTURE
   mProcess.setProgram("sleep");
-
+#else
+  mProcess.setProgram("/usr/local/bin/gphoto2");
+#endif
   connect(&mProcess, SIGNAL(finished(int)), this, SLOT(processFinished(int)));
 }
 
@@ -21,27 +23,25 @@ void PhotoCapture::capture() {
   const QDateTime now = QDateTime::currentDateTime();
   const QString timestamp = now.toString("yyyyMMdd-hhmmsszzz");
   mFilename = QString("%2.jpeg").arg(timestamp);
-
-  // mProcess.setArguments(
-  //    {"--capture-image-and-download", "--filename", mPath});
+#ifdef MOCK_CAPTURE
   mProcess.setArguments({"1"});
+#else
+  mProcess.setArguments({"--capture-image-and-download", "--filename", mPath});
+#endif
   mProcess.start();
 }
 
 void PhotoCapture::processFinished(int) {
-  QString newPath =
-      QString("%1/%2").arg(Settings::instance().sessionPath()).arg(mFilename);
+  QString newPath = QString("%1/%2").arg(Settings::instance().sessionPath()).arg(mFilename);
 
 #ifdef MOCK_CAPTURE
   static int count = 0;
   ++count;
-  QString mockFile = Settings::instance().tempPath() + "/mock" +
-                     QString::number((count % 4) + 1) + ".jpeg";
+  QString mockFile = Settings::instance().tempPath() + "/mock" + QString::number((count % 4) + 1) + ".jpeg";
   QFile::copy(mockFile, newPath);
 #endif
 
-  QString usbPath =
-      QString("%1/%2").arg(Settings::instance().usbDrivePath()).arg(mFilename);
+  QString usbPath = QString("%1/%2").arg(Settings::instance().usbDrivePath()).arg(mFilename);
   QFile::copy(newPath, usbPath);
 
   emit finished(newPath);

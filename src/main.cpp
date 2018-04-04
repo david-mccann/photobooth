@@ -9,7 +9,7 @@
 #include "photocapture.h"
 #include "settings.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
   QGuiApplication app(argc, argv);
 
@@ -31,21 +31,18 @@ int main(int argc, char *argv[]) {
 
   QDir usbDriveDir(Settings::instance().usbDrivePath());
   if (!usbDriveDir.mkpath(".")) {
-    qWarning() << "Cannot create directory: "
-               << Settings::instance().usbDrivePath();
+    qWarning() << "Cannot create directory: " << Settings::instance().usbDrivePath();
   }
 
   QDir tempDir(Settings::instance().tempPath());
   if (!tempDir.mkpath(".")) {
-    qCritical() << "Cannot create directory: "
-                << Settings::instance().tempPath();
+    qCritical() << "Cannot create directory: " << Settings::instance().tempPath();
     exit(1);
   }
 
   QDir sessionDir(Settings::instance().sessionPath());
   if (!sessionDir.mkpath(".")) {
-    qCritical() << "Cannot create directory: "
-                << Settings::instance().sessionPath();
+    qCritical() << "Cannot create directory: " << Settings::instance().sessionPath();
     exit(1);
   }
 
@@ -54,8 +51,7 @@ int main(int argc, char *argv[]) {
   // engine.rootContext()->setContextProperty("photoCapture", &capture);
   // engine.rootContext()->setContextProperty("galleryBuilder",
   // &galleryBuilder);
-  engine.rootContext()->setContextProperty(
-      "globalSettings", const_cast<Settings *>(&Settings::instance()));
+  engine.rootContext()->setContextProperty("globalSettings", const_cast<Settings*>(&Settings::instance()));
 
   return app.exec();
 }

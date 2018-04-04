@@ -14,10 +14,10 @@ class Settings : public QObject {
   Q_PROPERTY(int slideshowDuration READ slideshowDuration)
   Q_PROPERTY(int galleryDuration READ galleryDuration)
 
-public:
+  public:
   ~Settings();
 
-  static const Settings &instance();
+  static const Settings& instance();
 
   QString localPath() const;
   QString tempPath() const;
@@ -30,10 +30,10 @@ public:
   int slideshowDuration() const;
   int galleryDuration() const;
 
-private:
+  private:
   Settings();
 
-private:
+  private:
   static std::unique_ptr<Settings> pInstance;
   QSettings m_settings;
 };

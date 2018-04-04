@@ -9,19 +9,19 @@
 class GalleryBuilder : public QObject {
   Q_OBJECT
 
-public:
+  public:
   GalleryBuilder();
 
-  Q_INVOKABLE void makeGallery(const QList<QString> &paths);
+  Q_INVOKABLE void makeGallery(const QList<QString>& paths);
 
-signals:
-  void finished(const QString &path);
+  signals:
+  void finished(const QString& path);
 
-private slots:
+  private slots:
   void futureFinished();
 
-private:
-  QFutureWatcher<void> *m_watcher;
+  private:
+  QFutureWatcher<void>* m_watcher;
   QString mOutPath;
 };
 

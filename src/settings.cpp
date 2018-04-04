@@ -5,11 +5,12 @@
 std::unique_ptr<Settings> Settings::pInstance = nullptr;
 
 Settings::Settings()
-    : QObject(nullptr), m_settings("settings.ini", QSettings::IniFormat) {}
+    : QObject(nullptr)
+    , m_settings("settings.ini", QSettings::IniFormat) {}
 
 Settings::~Settings() = default;
 
-const Settings &Settings::instance() {
+const Settings& Settings::instance() {
   if (Settings::pInstance == nullptr) {
     Settings::pInstance = std::unique_ptr<Settings>(new Settings);
   }
@@ -21,13 +22,11 @@ QString Settings::localPath() const {
 }
 
 QString Settings::tempPath() const {
-  return QString("%1/temp").arg(
-      m_settings.value("Settings/LocalPath").toString());
+  return QString("%1/temp").arg(m_settings.value("Settings/LocalPath").toString());
 }
 
 QString Settings::sessionPath() const {
-  return QString("%1/session")
-      .arg(m_settings.value("Settings/LocalPath").toString());
+  return QString("%1/session").arg(m_settings.value("Settings/LocalPath").toString());
 }
 
 QString Settings::usbDrivePath() const {

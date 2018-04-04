@@ -8,12 +8,13 @@
 
 #include "settings.h"
 
-GalleryBuilder::GalleryBuilder() : m_watcher(new QFutureWatcher<void>) {
+GalleryBuilder::GalleryBuilder()
+    : m_watcher(new QFutureWatcher<void>) {
   connect(m_watcher, SIGNAL(finished()), this, SLOT(futureFinished()));
 }
 
-void GalleryBuilder::makeGallery(const QList<QString> &paths) {
-  QFuture<void> result = QtConcurrent::run(QThreadPool::globalInstance(), [=] {
+void GalleryBuilder::makeGallery(const QList<QString>& paths) {
+  auto task = [=] {
     const QSize scaledImageSize = Settings::instance().scaledImageSize();
     const int imageWidth = scaledImageSize.width();
     const int imageHeight = scaledImageSize.height();
@@ -43,13 +44,15 @@ void GalleryBuilder::makeGallery(const QList<QString> &paths) {
 
     const QDateTime now = QDateTime::currentDateTime();
     const QString timestamp = now.toString("yyyyMMdd-hhmmsszzz");
-    const QString path = QString("%1/%2_composed.jpeg")
-                             .arg(Settings::instance().sessionPath())
-                             .arg(timestamp);
+    const QString path = QString("%1/%2_composed.jpeg").arg(Settings::instance().sessionPath()).arg(timestamp);
     gallery.save(path);
     mOutPath = path;
-  });
+  };
+
+  QFuture<void> result = QtConcurrent::run(QThreadPool::globalInstance(), task);
   m_watcher->setFuture(result);
 }
 
-void GalleryBuilder::futureFinished() { emit finished(mOutPath); }
+void GalleryBuilder::futureFinished() {
+  emit finished(mOutPath);
+}
