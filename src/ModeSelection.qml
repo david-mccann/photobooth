@@ -7,23 +7,20 @@ Item {
 
     RowLayout {
         anchors.fill: parent
+        anchors.margins: 30
 
         ColumnLayout {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillHeight: true
-            Layout.fillWidth: true
 
             Image {
-                enabled: true
-                //antialiasing: true
-                fillMode: Image.Pad
-                sourceSize.width: 400
-                sourceSize.height: 400
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+
+                fillMode: Image.PreserveAspectFit
                 source: "images/4.png"
 
                 MouseArea {
                     id: fourImageArea
-                    scale: 1
                     anchors.fill: parent
                     onClicked: {
                         fourImageModeSelected();
@@ -40,15 +37,12 @@ Item {
 
         ColumnLayout {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillHeight: true
-            Layout.fillWidth: true
 
             Image {
-                enabled: true
-                //antialiasing: true
-                fillMode: Image.Pad
-                sourceSize.width: 400
-                sourceSize.height: 400
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+
+                fillMode: Image.PreserveAspectFit
                 source: "images/3.png"
 
                 MouseArea {

@@ -15,10 +15,7 @@ Rectangle {
     color: "black"
 
     RowLayout {
-        anchors.rightMargin: 5
-        anchors.leftMargin: 5
-        anchors.bottomMargin: 5
-        anchors.topMargin: 5
+        anchors.margins: 5
         anchors.fill: parent
 
         PhotoView {

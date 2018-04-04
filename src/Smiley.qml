@@ -9,12 +9,13 @@ Item {
 
     RowLayout {
         anchors.fill: parent
+        anchors.margins: 20
 
         Image {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
-            sourceSize.width: 480
-            sourceSize.height: 480
             fillMode: Image.PreserveAspectFit
 
             enabled: true

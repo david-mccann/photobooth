@@ -10,7 +10,6 @@ Item {
     signal triggered()
     signal lastGallery()
 
-
     Image {
         id: triggerButton
 
@@ -18,8 +17,6 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: -38
 
-        sourceSize.width: 440
-        sourceSize.height: 440
         fillMode: Image.PreserveAspectFit
 
         cache: true
@@ -42,20 +39,12 @@ Item {
         anchors.verticalCenterOffset: 200
         anchors.horizontalCenterOffset: 177
 
-        sourceSize.width: 198
-        sourceSize.height: 198
         fillMode: Image.PreserveAspectFit
 
         enabled: hasGalleryPhoto
 
         cache: true
         source: hasGalleryPhoto ? "images/lastgallery.png" : "images/lastgallery_gray.png"
-
-        /*Desaturate {
-            anchors.fill: lastGalleryButton
-            source: lastGalleryButton
-            desaturation: !hasGalleryPhoto ? 0.8 : 0.0
-        }*/
 
         MaskedMouseArea {
             anchors.fill: parent
