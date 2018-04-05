@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
+import PhotoCapture 1.0
 
 Item {
     property var extraPhoto
@@ -9,10 +10,10 @@ Item {
 
     GridLayout {
         id: gridLayout
-        anchors.bottomMargin: 0
         columns: 2
         rows: 2
         anchors.fill: parent
+        anchors.topMargin: 5
 
         Component {
             id: photoView
@@ -22,23 +23,33 @@ Item {
         }
 
         Component {
-            id: photoCountdown
-            PhotoCountdown {
-                onCountdownFinished: {
-                    extraPhoto = photoCapture.capture();
-                    stackView.push(photoView);
+            id: smiley
+            Smiley {
+                PhotoCapture {
+                    id: photoCapture
+                    onFinished: {
+                        console.log("Captured: ", path);
+                        extraPhoto = path;
+                        stackView.push(photoView);
+                    }
+                }
+
+                Component.onCompleted: {
+                    photoCapture.captureExtra();
                 }
             }
         }
 
         Component {
-            id: photoTrigger
-            PhotoTrigger {
-                onTriggered: {
-                    stackView.push(photoCountdown);
+            id: photoCountdown
+
+            PhotoCountdown {
+                onCountdownFinished: {
+                    stackView.replace(null, smiley, {}, StackView.Immediate);
                 }
             }
         }
+
 
         StackView {
             id: stackView
@@ -47,21 +58,22 @@ Item {
             Layout.row: 1
             Layout.column: 1
             Layout.columnSpan: 2
-            initialItem: photoTrigger
         }
 
         Button {
             id: acceptButton
-            text: qsTr("Akzeptieren")
+            text: extraPhoto == undefined ? qsTr("Aufnehmen") : qsTr("Übernehmen")
             font.pointSize: 24
             Layout.fillWidth: true
-            Layout.minimumHeight: 200
+            Layout.minimumHeight: 150
             Layout.row: 2
             Layout.column: 1
-            enabled: extraPhoto !== undefined
             onClicked: {
-                extraPhoto.saveAsExtraPhoto();
-                finished();
+                if (extraPhoto == undefined) {
+                    stackView.replace(null, photoCountdown, {}, StackView.Immediate);
+                } else {
+                    finished();
+                }
             }
         }
 
@@ -70,14 +82,12 @@ Item {
             text: qsTr("Wiederholen")
             font.pointSize: 24
             Layout.fillWidth: true
-            Layout.minimumHeight: 200
+            Layout.minimumHeight: 150
             Layout.row: 2
             Layout.column: 2
             enabled: extraPhoto !== undefined
             onClicked: {
-                extraPhoto.remove();
-                stackView.clear();
-                stackView.push(photoCountdown);
+                stackView.replace(null, photoCountdown, {}, StackView.Immediate);
             }
         }
     }

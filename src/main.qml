@@ -80,10 +80,6 @@ ApplicationWindow {
 
             onTriggered: {
                 root.photos = [];
-                if (mode === "three") {
-                    root.photos.push(extraPhoto);
-                }
-
                 stackView.replace(null, photoCountdown);
             }
 
@@ -109,6 +105,9 @@ ApplicationWindow {
                     if (mode === "three" && root.photos.length < 3 || mode === "four" && root.photos.length < 4) {
                         stackView.replace(null, photoCountdown, {}, StackView.Immediate);
                     } else {
+                        if (mode == "three") {
+                            root.photos.push(root.extraPhoto);
+                        }
                         stackView.replace(null, photoSlideshow);
                     }
                 }

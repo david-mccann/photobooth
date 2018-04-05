@@ -26,7 +26,18 @@ void PhotoCapture::capture() {
 #ifdef MOCK_CAPTURE
   mProcess.setArguments({"1"});
 #else
-  mProcess.setArguments({"--capture-image-and-download", "--filename", mPath});
+  mProcess.setArguments({"--capture-image-and-download", "--filename", mFilename});
+#endif
+  mProcess.start();
+}
+
+void PhotoCapture::captureExtra() {
+  mFilename = "extra.jpeg";
+  QFile::remove(mFilename);
+#ifdef MOCK_CAPTURE
+  mProcess.setArguments({"1"});
+#else
+  mProcess.setArguments({"--capture-image-and-download", "--filename", mFilename});
 #endif
   mProcess.start();
 }
@@ -34,11 +45,15 @@ void PhotoCapture::capture() {
 void PhotoCapture::processFinished(int) {
   QString newPath = QString("%1/%2").arg(Settings::instance().sessionPath()).arg(mFilename);
 
+  QFile::remove(newPath);
+
 #ifdef MOCK_CAPTURE
   static int count = 0;
   ++count;
   QString mockFile = Settings::instance().tempPath() + "/mock" + QString::number((count % 4) + 1) + ".jpeg";
   QFile::copy(mockFile, newPath);
+#else
+  QFile::rename(mFilename, newPath);
 #endif
 
   QString usbPath = QString("%1/%2").arg(Settings::instance().usbDrivePath()).arg(mFilename);

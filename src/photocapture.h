@@ -23,6 +23,7 @@ class PhotoCapture : public QObject {
   PhotoCapture(QObject* parent = Q_NULLPTR);
 
   Q_INVOKABLE void capture();
+  Q_INVOKABLE void captureExtra();
 };
 
 #endif // PHOTOCAPTURE_H
