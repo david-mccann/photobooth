@@ -7,7 +7,7 @@
 #include <QProcess>
 #include <QThread>
 
-#define MOCK_CAPTURE
+//#define MOCK_CAPTURE
 
 PhotoCapture::PhotoCapture(QObject* /*parent*/) {
   mProcess.setWorkingDirectory(Settings::instance().tempPath());
@@ -16,6 +16,7 @@ PhotoCapture::PhotoCapture(QObject* /*parent*/) {
 #else
   mProcess.setProgram("/usr/local/bin/gphoto2");
 #endif
+  connect(&mProcess, SIGNAL(started()), this, SLOT(processStarted()));
   connect(&mProcess, SIGNAL(finished(int)), this, SLOT(processFinished(int)));
 }
 
@@ -37,12 +38,19 @@ void PhotoCapture::captureExtra() {
 #ifdef MOCK_CAPTURE
   mProcess.setArguments({"1"});
 #else
-  mProcess.setArguments({"--capture-image-and-download", "--filename", mFilename});
+  mProcess.setArguments({"--capture-image-and-download", "--filename", mFilename, "--quiet"});
 #endif
   mProcess.start();
 }
 
+void PhotoCapture::processStarted() {
+  mTimer.start();
+  qDebug() << "Capture process started";
+}
+
 void PhotoCapture::processFinished(int) {
+  qDebug() << "Capture finished after " << mTimer.elapsed() << " ms";
+
   QString newPath = QString("%1/%2").arg(Settings::instance().sessionPath()).arg(mFilename);
 
   QFile::remove(newPath);
@@ -53,7 +61,9 @@ void PhotoCapture::processFinished(int) {
   QString mockFile = Settings::instance().tempPath() + "/mock" + QString::number((count % 4) + 1) + ".jpeg";
   QFile::copy(mockFile, newPath);
 #else
-  QFile::rename(mFilename, newPath);
+  QString path = Settings::instance().tempPath() + "/" + mFilename;
+  qDebug() << "copy " << path << " to " << newPath;
+  QFile::rename(path, newPath);
 #endif
 
   QString usbPath = QString("%1/%2").arg(Settings::instance().usbDrivePath()).arg(mFilename);

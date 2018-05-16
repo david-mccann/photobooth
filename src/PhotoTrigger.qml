@@ -16,10 +16,10 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: -38
 
-        fillMode: Image.PreserveAspectFit
-
         cache: true
         source: "images/triggerbutton.png"
+        sourceSize.height: 370
+        sourceSize.width: 370
 
         MaskedMouseArea {
             anchors.fill: parent
@@ -35,10 +35,10 @@ Item {
 
         anchors.verticalCenter: triggerButton.verticalCenter
         anchors.horizontalCenter: triggerButton.horizontalCenter
-        anchors.verticalCenterOffset: 200
-        anchors.horizontalCenterOffset: 177
-
-        fillMode: Image.PreserveAspectFit
+        anchors.verticalCenterOffset: 167
+        anchors.horizontalCenterOffset: 148
+        sourceSize.height: 166
+        sourceSize.width: 166
 
         enabled: hasGalleryPhoto
 

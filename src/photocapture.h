@@ -2,6 +2,7 @@
 #define PHOTOCAPTURE_H
 
 #include <QDateTime>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QObject>
 #include <QProcess>
@@ -12,11 +13,13 @@ class PhotoCapture : public QObject {
   QProcess mProcess;
   QString mFilename;
   bool mFinished = false;
+  QElapsedTimer mTimer;
 
   signals:
   void finished(const QString& path);
 
   private slots:
+  void processStarted();
   void processFinished(int);
 
   public:
